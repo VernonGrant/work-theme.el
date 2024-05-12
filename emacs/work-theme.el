@@ -27,12 +27,11 @@
 
 (deftheme work  "A low contrast theme for Emacs that works well in bright and dark settings.")
 
-;; TODO: Write down all color names as comments.
+;; TODO: Add Magit styling.
 ;; TODO: Org agenda and files.
 ;; TODO: Check all markdown faces.
-;; TODO: LSP UI.
-;; TODO: Complication
-;; TODO: Check all markdown faces.
+;; TODO: LSP UI faces.
+;; TODO: Write down all color names as comments.
 ;; TODO: Add muted colors for all icons.
 
 (let* (
@@ -46,15 +45,12 @@
 
        (comment    "#d2b48c")
        (string     "#d8bfd8")
-
        (keyword    "#ffa07a")
        (variable   "#eee8aa")
        (type       "#cdcdc1")
-
        (constant   "#ffdab9")
        (reference   "#b0c4de")
        (preprocessor   "#b3d7ff")
-
        (region     bg-darker)
        (cursor     "#eeb422")
 
@@ -157,7 +153,7 @@
    `(mode-line-inactive                   ((t (:foreground ,fg-muted :background ,bg-muted))))
    `(mode-line-buffer-id                  ((t (:foreground ,constant))))
 
-   ;; El doc
+   ;; El Doc
    `(eldoc-highlight-function-argument   ((t (:foreground ,attention  :background ,bg-darker))))
 
    ;; Minibuffer
