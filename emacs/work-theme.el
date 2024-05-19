@@ -27,13 +27,6 @@
 
 (deftheme work  "A low contrast theme for Emacs that works well in bright and dark settings.")
 
-;; TODO: Add Magit styling.
-;; TODO: Org agenda and files.
-;; TODO: Check all markdown faces.
-;; TODO: LSP UI faces.
-;; TODO: Write down all color names as comments.
-;; TODO: Add muted colors for all icons.
-
 (let* (
        (fg         "#ffe4e1")  ;; Misty Rose
        (fg-muted   "#cdb7b5")  ;; Misty Rose 3
@@ -58,13 +51,16 @@
 
        ;; General
        (amber  "#ffa54f")
-       (amber-faded  "#f4a460")
+       (amber-fg  "#f4a460")
+       (amber-bg  "#6b6654")
 
        (red    "#f08080")
-       (red-faded    "#ffb6c1")
+       (red-fg    "#ffb6c1")
+       (red-bg    "#735454")
 
        (green   "#b4eeb4")
-       (green-faded   "#9bcd9b")
+       (green-fg   "#9bcd9b")
+       (green-bg    "#546454")
 
        (whitespace bg-muted))
 
@@ -101,34 +97,19 @@
    ;; `(Info-quoted                          ((t (:foreground ,attention))))
    ;; `(custom-group-tag-1                   ((t (:foreground ,attention))))
 
-   ;; TODO: Complication
-   ;; compilation-error
-   ;; compilation-info
-   ;; compilation-line-number
-   ;; compilation-mode-line-exit
-   ;; compilation-mode-line-fail
-   ;; compilation-mode-line-run
-   ;; compilation-warning
-   ;; completions-annotations
-   ;; completions-common-part
-   ;; completions-first-difference
-   ;; completions-group-separator
-   ;; completions-group-title
-   ;; completions-highlight
-
    ;; Comint buffers
    `(comint-highlight-prompt          ((t (:foreground ,constant))))
 
    ;; Help
-   `(help-key-binding                     ((t (:foreground ,constant))))
+   `(help-key-binding                 ((t (:foreground ,constant))))
 
    ;; Line numbers
-   `(line-number                          ((t (:foreground ,fg-muted  :background ,nil))))
-   `(line-number-current-line             ((t (:foreground ,fg :background ,bg-muted :bold t))))
+   `(line-number                      ((t (:foreground ,fg-muted  :background ,nil))))
+   `(line-number-current-line         ((t (:foreground ,fg :background ,bg-muted :bold t))))
 
    ;; Fringes
-   `(fringe                               ((t (:foreground ,bg-darker :background ,bg-darker))))
-   `(vertical-border                      ((t (:foreground ,bg-darker :background ,bg-darker))))
+   `(fringe                           ((t (:foreground ,bg-darker :background ,bg-darker))))
+   `(vertical-border                  ((t (:foreground ,bg-darker :background ,bg-darker))))
 
    ;; Whitespace
    `(whitespace-indentation            ((t (:background nil))))
@@ -170,6 +151,7 @@
    `(dired-directory                      ((t (:foreground ,constant))))
    `(dired-ignored                        ((t (:foreground ,fg-muted))))
    `(dired-perm-write                     ((t (:foreground ,keyword))))
+   `(dired-broken-symlink                 ((t (:foreground ,red))))
    `(all-the-icons-dired-dir-face         ((t (:foreground ,fg-darker))))
 
    ;; Completions, shows available completions
@@ -190,15 +172,12 @@
    `(blamer-face                          ((t ( :foreground ,fg-muted :background ,nil :height 120 :italic t))))
 
    ;; Lsp
-   `(lsp-flycheck-info-unnecessary-face ((t (:foreground ,bg-muted))))
+   ;; `(lsp-flycheck-info-unnecessary-face ((t (:foreground ,bg-muted))))
    `(lsp-ui-doc-header                  ((t (:foreground ,fg :background ,bg-muted))))
    `(lsp-ui-doc-background              ((t (:background ,bg-darker))))
-   ;; '(lsp-ui-doc-header ((t (:foreground ,fg :background ,bg-muted))))
-   ;; '(lsp-ui-doc-background ((t (:background ,bg-darker))))
 
-   ;; Magit
-   ;; `(all-the-icons-dsilver ((t (:foreground ,bg-muted))))
-   ;; all-the-icons-dsilver
+   ;; How to style this correctly?
+   `(lsp-lsp-flycheck-info-unnecessary-face ((t (:foreground ,fg-muted :underline `(:style wave :color ,green-fg)))))
 
    ;; Company
    `(company-tooltip                      ((t (:foreground ,fg :background ,bg))))
@@ -211,19 +190,112 @@
    `(company-tooltip-annotation-selection ((t (:foreground ,comment))))
 
    ;; Which key
-   `(which-key-command-description-face ((t (:foreground ,fg))))
-   `(which-key-docstring-face ((t (:foreground ,comment))))
-   `(which-key-group-description-face ((t (:foreground ,keyword))))
-   `(which-key-command-description-face ((t (:foreground ,fg))))
-   `(which-key-key-face ((t (:foreground ,constant))))
+   `(which-key-command-description-face   ((t (:foreground ,fg))))
+   `(which-key-docstring-face             ((t (:foreground ,comment))))
+   `(which-key-group-description-face     ((t (:foreground ,keyword))))
+   `(which-key-command-description-face   ((t (:foreground ,fg))))
+   `(which-key-key-face                   ((t (:foreground ,constant))))
    `(which-key-local-map-description-face ((t (:foreground ,comment))))
-   `(which-key-note-face ((t (:foreground ,fg-muted))))
-   `(which-key-separator-face ((t (:foreground ,fg-muted))))
-   `(which-key-special-key-face ((t (:background ,bg-muted :foreground ,type))))
+   `(which-key-note-face                  ((t (:foreground ,fg-muted))))
+   `(which-key-separator-face             ((t (:foreground ,fg-muted))))
+   `(which-key-special-key-face           ((t (:background ,bg-muted :foreground ,type))))
 
    ;; TODO: Check all markdown faces.
    ;; Markdown
    `(markdown-inline-code-face ((t (:foreground ,fg-muted))))
+
+   ;; TODO: Improve all org mode styling.
+   ;; Org
+   `(org-special-keyword         ((t (:foreground ,keyword))))
+   `(org-priority                ((t (:foreground ,type))))
+   `(org-tag                     ((t (:foreground ,reference))))
+   `(org-date                    ((t (:foreground ,variable))))
+   `(org-todo                    ((t (:foreground ,green))))
+   `(org-done                    ((t (:foreground ,fg-muted))))
+   `(org-headline-done           ((t (:foreground ,fg-muted))))
+   `(org-block-begin-line        ((t (:foreground ,fg-muted))))
+   `(org-meta-line               ((t (:foreground ,fg-muted))))
+   `(org-code                    ((t (:foreground ,fg))))
+   `(org-verbatim                ((t (:foreground ,fg-muted))))
+   `(org-agenda-structure        ((t (:foreground ,keyword))))
+   `(org-agenda-date             ((t (:foreground ,constant))))
+   `(org-agenda-done             ((t (:foreground ,fg-muted))))
+   `(org-scheduled               ((t (:foreground ,variable))))
+   `(org-scheduled-previously    ((t (:foreground ,amber))))
+   `(org-imminent-deadline       ((t (:foreground ,red))))
+   `(org-upcoming-deadline       ((t (:foreground ,red-fg))))
+   `(org-date-selected           ((t (:foreground ,attention :background ,bg-darker))))
+   `(org-drawer                  ((t (:foreground ,type))))
+   `(org-level-1                 ((t (:foreground ,keyword))))
+   `(org-level-2                 ((t (:foreground ,constant))))
+   `(org-level-3                 ((t (:foreground ,variable))))
+   `(org-level-4                 ((t (:foreground ,fg))))
+   `(org-level-5                 ((t (:foreground ,fg))))
+   `(org-level-6                 ((t (:foreground ,fg-muted))))
+   `(org-level-7                 ((t (:foreground ,fg-muted))))
+   `(org-level-8                 ((t (:foreground ,fg-muted))))
+
+   ;; Flycheck
+   `(flycheck-info    ((t (:underline (:style line :color ,green)))))
+   `(flycheck-warning ((t (:underline (:style line :color ,amber)))))
+   `(flycheck-error   ((t (:underline (:style line :color ,red)))))
+
+   ;; Flyspell
+    `(flyspell-incorrect ((t (:underline (:style wave :color ,red-fg)))))
+    `(flyspell-duplicate ((t (:underline (:style wave :color ,amber-fg)))))
+
+   ;; Magit
+   `(magit-section-highlight              ((t (:background ,bg-darker))))
+   `(magit-section-heading                ((t (:background ,nil :foreground ,constant))))
+   `(magit-sequence-onto                  ((t (:foreground ,fg-muted ))))
+   `(magit-sequence-done                  ((t (:foreground ,fg-muted))))
+   `(magit-sequence-exec                  ((t (:foreground ,fg-muted))))
+   `(magit-dimmed                         ((t (:foreground ,fg-muted))))
+   `(magit-hash                           ((t (:foreground ,fg-muted))))
+   `(magit-head                           ((t (:foreground ,keyword))))
+
+   `(magit-diff-hunk-heading-highlight    ((t (:background ,bg-darker :foreground ,constant))))
+   `(magit-diff-hunk-heading              ((t (:background ,bg-darker :foreground ,fg))))
+
+   `(magit-diff-added             ((t (:background ,green-bg :foreground ,fg-muted))))
+   `(magit-diff-removed           ((t (:background ,red-bg :foreground ,fg-muted))))
+   `(magit-diff-context           ((t (:background ,bg :foreground ,fg))))
+   `(magit-diff-context-highlight ((t (:background ,bg-darker :foreground ,fg-muted))))
+   `(magit-diff-added-highlight   ((t (:background ,green-bg :foreground ,green-fg))))
+   `(magit-diff-removed-highlight ((t (:background ,red-bg :foreground ,red-fg))))
+
+   ;; Git gutter:
+   `(git-gutter:added           ((t (:background ,green-bg :foreground ,green-fg))))
+   `(git-gutter:deleted         ((t (:background ,red-bg :foreground ,red-fg))))
+   `(git-gutter:modified        ((t (:background ,amber-bg :foreground ,amber-fg))))
+   `(git-gutter:unchanged       ((t (:background ,bg :foreground ,fg))))
+   `(git-gutter-fr:added        ((t (:background ,green-bg :foreground ,green-fg))))
+   `(git-gutter-fr:deleted      ((t (:background ,red-bg :foreground ,red-fg))))
+   `(git-gutter-fr:modified     ((t (:background ,amber-bg :foreground ,red-fg))))
+
+   ;; Version Control:
+   ;; `(vc-annotate-face-3F3FFF   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3F6CFF   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3FC6FF   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3FF3FF   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3FFF83   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3FFFB0   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-3FFFDD   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-56FF3F   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-83FF3F   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-FF3F3F   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-FF6C3F   ((t (:background ,green-bg :foreground ,green-fg))))
+   ;; `(vc-annotate-face-FF993F   ((t (:background ,green-bg :foreground ,green-fg))))
+
+   ;; Ido
+   ;; `(ido-subdir                           ((t (:foreground ,fg :bold t))))
+   ;; `(ido-first-match                      ((t (:foreground ,keyword))))
+   ;; `(ido-only-match                       ((t (:foreground ,keyword))))
+   ;; `(ido-indicator                        ((t (:foreground ,constant))))
+   ;; `(ido-incomplete-regexp                ((t (:foreground ,amber))))
+
+   ;; GNU Make
+   ;; `(makefile-targets                     ((t (:foreground ,keyword))))
 
    ;; TODO: Add muted colors for all icons.
    ;; All the icons:
@@ -269,57 +341,50 @@
    ;; `(flyspell-incorrect                   ((t (:underline ,t))))
    ;; `(flyspell-duplicate                   ((t (:underline ,t))))
 
-   ;; TODO: Improve all org mode styling.
-   ;; Org
-   `(org-special-keyword                  ((t (:foreground ,keyword))))
-   `(org-priority                         ((t (:foreground ,type))))
-   `(org-tag                              ((t (:foreground ,reference))))
-   `(org-date                             ((t (:foreground ,variable))))
-   `(org-todo                             ((t (:foreground ,green))))
-   `(org-done                             ((t (:foreground ,fg-muted))))
-   `(org-headline-done                    ((t (:foreground ,fg-muted))))
-   `(org-block-begin-line                 ((t (:foreground ,fg-muted))))
-   `(org-meta-line                        ((t (:foreground ,fg-muted))))
-   `(org-code                             ((t (:foreground ,fg))))
-   `(org-verbatim                         ((t (:foreground ,fg-muted))))
-   `(org-agenda-structure                 ((t (:foreground ,keyword))))
-   `(org-agenda-date                      ((t (:foreground ,constant))))
-   `(org-agenda-done                      ((t (:foreground ,fg-muted))))
-   `(org-scheduled                        ((t (:foreground ,variable))))
-   `(org-scheduled-previously             ((t (:foreground ,amber))))
-   `(org-imminent-deadline                ((t (:foreground ,red))))
-   `(org-upcoming-deadline                ((t (:foreground ,red-faded))))
-   `(org-level-1                          ((t (:foreground ,keyword))))
-   `(org-level-2                          ((t (:foreground ,constant))))
-   `(org-level-3                          ((t (:foreground ,variable))))
-   `(org-level-4                          ((t (:foreground ,fg))))
-   `(org-level-5                          ((t (:foreground ,fg))))
-   `(org-level-6                          ((t (:foreground ,fg-muted))))
-   `(org-level-7                          ((t (:foreground ,fg-muted))))
-   `(org-level-8                          ((t (:foreground ,fg-muted))))
-
-   ;; Ido
-   ;; `(ido-subdir                           ((t (:foreground ,fg :bold t))))
-   ;; `(ido-first-match                      ((t (:foreground ,keyword))))
-   ;; `(ido-only-match                       ((t (:foreground ,keyword))))
-   ;; `(ido-indicator                        ((t (:foreground ,constant))))
-   ;; `(ido-incomplete-regexp                ((t (:foreground ,amber))))
-
-   ;; GNU Make
-   ;; `(makefile-targets                     ((t (:foreground ,keyword))))
-
-   ;; Flycheck
-   ;; `(flycheck-info                        ((t (:underline ,t))))
-   ;; `(flycheck-warning                     ((t (:underline ,t))))
-   ;; `(flycheck-error                       ((t (:underline ,t))))
+   ;; `(lsp-flycheck-info-unnecessary-face ((t (:forground :inherit :underline :color ,green))))
+   ;; lsp-flycheck-info-unnecessary-face
+   ;; '(lsp-ui-doc-header ((t (:foreground ,fg :background ,bg-muted))))
+   ;; '(lsp-ui-doc-background ((t (:background ,bg-darker))))
 
    ;; Magit
-   ;; `(magit-section-highlight              ((t (:background ,region))))
-   ;; `(magit-section                        ((t (:background ,nil :foreground ,fg))))
-   ;; `(magit-diff-hunk-heading-highlight    ((t (:background ,region :foreground ,fg))))
-   ;; `(magit-diff-hunk-heading              ((t (:background ,nil :foreground ,fg))))
-   ;; `(magit-diff-context-highlight         ((t (:background ,region :foreground ,fg))))
-   ;; `(magit-diff-context                   ((t (:background ,nil :foreground ,fg))))
+   ;; `(all-the-icons-dsilver ((t (:foreground ,bg-muted))))
+   ;; all-the-icons-dsilver
+
+   ;; Vterm
+   ;; vterm-color-black                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-blue                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-black                abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-blue                 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-cyan                 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-green                abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-magenta              abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-red                  abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-white                abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-bright-yellow               abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-cyan                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-green                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-inverse-video               abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-magenta                     abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-red                         abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-underline                   abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-white                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   ;; vterm-color-yellow                      abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+   ;; TODO: Complication
+   ;; compilation-error
+   ;; compilation-info
+   ;; compilation-line-number
+   ;; compilation-mode-line-exit
+   ;; compilation-mode-line-fail
+   ;; compilation-mode-line-run
+   ;; compilation-warning
+   ;; completions-annotations
+   ;; completions-common-part
+   ;; completions-first-difference
+   ;; completions-group-separator
+   ;; completions-group-title
+   ;; completions-highlight
+
    )
   )
 
@@ -327,8 +392,6 @@
 (when load-file-name
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
-
-
 
 (provide-theme 'work)
 
